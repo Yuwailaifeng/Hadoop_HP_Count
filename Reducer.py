@@ -4,19 +4,24 @@
 from operator import itemgetter
 import sys
 
-HPCount = {}
-
-for line in sys.stdin:
-    i = line.strip().split('\t')
-
-    HPCount.setdefault(i[0],0)
-    HPCount[i[0]] += int(i[1])
-
 HP = {}
-for k,v in HPCount.items():
-    kk = k.split('#')
-    HP.setdefault(kk[0],'')
-    HP[kk[0]] += kk[1]+'|'+str(v)+';'
+for line in sys.stdin:
+    word, count = line.strip().split('\t', 1)
 
-for k,v in HP.items():
+    try:
+        count = int(count)
+    except ValueError:
+        continue
+
+    HP.setdefault(word,0)
+    HP[word] += count
+
+
+HPCount = {}
+for k,v in HPCount.items():
+    disease, hp = k.split('#')
+    HPCount.setdefault(disease,'')
+    HPCount[disease] += hp+'|'+str(v)+';'
+
+for k,v in HPCount.items():
     print(k + '\t' + v)
