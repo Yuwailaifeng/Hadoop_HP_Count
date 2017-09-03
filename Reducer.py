@@ -18,7 +18,7 @@ for line in sys.stdin:
 
 
 HPCount = {}
-for k,v in HPCount.items():
+for k,v in HP.items():
     disease, hp = k.split('#')
     HPCount.setdefault(disease,'')
     HPCount[disease] += hp+'|'+str(v)+';'
